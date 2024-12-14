@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  backend_django:
+    restart: always
+    build:
+      .
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/rcs_backend
