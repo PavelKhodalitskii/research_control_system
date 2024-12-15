@@ -1,0 +1,12 @@
+{% extends 'index/base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="items_list">
+        {% for event in events %}
+            <div>
+                <p> {{event.name}} </p>
+            </div>
+        {% endfor %}
+    </div> 
+{% endblock %}

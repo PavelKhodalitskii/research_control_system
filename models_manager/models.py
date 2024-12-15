@@ -31,7 +31,7 @@ class Account(models.Model):
     patronymic = models.CharField(max_length=128, blank=True, null=True, verbose_name="Отчество")
 
     def __str__(self):
-        return " ".join([self.firstname, self.lastname, self.patronymic])
+        return str(self.firstname) + " " + str(self.lastname) + " " + str(self.patronymic)
 
     class Meta:
         managed = False
@@ -96,7 +96,7 @@ class Event(models.Model):
     faculty = models.ForeignKey('Faculty', models.DO_NOTHING, db_column='faculty', blank=True, null=True, verbose_name="Факультет")
 
     def __str__(self):
-        return " ".join([self.name, str(self.date)])
+        return self.name + " " + tr(self.date)
 
     class Meta:
         managed = False

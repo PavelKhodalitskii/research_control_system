@@ -9,8 +9,10 @@ class SystemUser(AbstractUser):
 
     def __str__(self):
         if self.account:
-            return " ".join([self.account.firstname, self.account.lastname, self.account.patronymic])
-        return " ".join([self.first_name, self.last_name])
+            firstname = self.account.firstname
+            lastname = self.account.lastname
+            return str(firstname) + " " + str(lastname)
+        return "Empty"
 
     class Meta:
         verbose_name = 'Пользователь системы'

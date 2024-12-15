@@ -36,7 +36,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'models_manager',
     'account',
-    'index'
+    'index',
+    'researches'
 ]
 
 MIDDLEWARE = [
