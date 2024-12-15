@@ -20,7 +20,7 @@
     <header class="header">
         <div class="navigation_bar">
             <div class="naviagation_list">
-                <a href="#" class="header_item">
+                <a href="{% url 'events_list' %}" class="header_item">
                     <p class="header_link">Главная</p>
                 </a>
                 {% if request.user.is_superuser %}
@@ -68,7 +68,7 @@
         {% endblock %}
     </div>
 
-    <script src="{% static 'js/officesMenuHandler.js' %}">
-    </script>
+    <!-- <script src="{% static 'js/officesMenuHandler.js' %}">
+    </script> -->
 </body>
 </html>

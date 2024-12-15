@@ -1,0 +1,7 @@
+{% extends 'index/base.html' %}
+{% load static %}
+
+{% block content %}
+    {% include "researches/includes/event_details.html" with event=event %}
+    {% include "researches/includes/researches_list.html" with researches=researches%}
+{% endblock %}
