@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView, DetailView
 from models_manager.models import Event, Research
 
@@ -30,4 +30,23 @@ class EventDetailView(DetailView):
 
         # context['researches'] = Research.objects.filter(event__id=event_id).all()
         context['researches_data'] = researches_data
+        return context
+
+class ResearchDetailView(DetailView):
+    model = Research
+    template_name = 'researches/research_details_view.html'
+    pk_url_kwarg = 'research_id'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        research_id = self.kwargs['research_id']
+        research = get_object_or_404(Research, pk=research_id)
+
+        research_data = {
+            "research": research,
+            "research_add_info": ResearchesContorller.get_research_information(research)
+        }
+
+        context["research_data"] = research_data
         return context

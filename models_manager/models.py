@@ -204,6 +204,10 @@ class Research(models.Model):
     commitette = models.ForeignKey(Commitette, models.DO_NOTHING, db_column='commitette', blank=True, null=True, verbose_name="Комитет")
     event = models.ForeignKey(Event, models.DO_NOTHING, db_column='event', blank=True, null=True, verbose_name="Событие")
 
+    
+    def get_absolute_url(self):
+        return reverse('research_details', kwargs={'research_id': self.id})
+
     class Meta:
         managed = False
         db_table = 'research'

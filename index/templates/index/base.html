@@ -43,6 +43,8 @@
                 {% endif %}
                 <p>Вы авторизованы как: <a>{{ user.username }}</a></p>
                 <a href="{% url 'logout' %}">Выйти</a>
+            {% else %}
+                <a href="{% url 'login' %}">Войти</a>
             {% endif %}
         </div>
     </header>

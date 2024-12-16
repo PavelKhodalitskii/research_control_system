@@ -11,7 +11,7 @@ class LoginUser(auth_views.LoginView):
     template_name = 'account/login.html'
 
     def get_success_url(self):
-        return reverse_lazy('researches')
+        return reverse_lazy('events_list')
 
 def logout_user(request):
     logout(request)
