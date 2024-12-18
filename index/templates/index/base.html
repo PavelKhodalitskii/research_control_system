@@ -24,13 +24,13 @@
                     <p class="header_link">Главная</p>
                 </a>
                 {% if request.user.is_superuser %}
-                    <a href="#" class="header_item">
-                        <p href="#" class="header_link">НИР</p>
-                    </a>
                     <a href="{% url 'students_table' %}" class="header_item">
                         <p class="header_link">Студенты</p>
                     </a>
-                    <a href="#" class="header_item">
+                    <a href="{% url 'students_table' %}" class="header_item">
+                        <p class="header_link">Аспиранты</p>
+                    </a>
+                    <a href="{% url 'teachers_table' %}" class="header_item">
                         <p class="header_link">Преподаватели</p>
                     </a>
                 {% endif %}

@@ -1,0 +1,7 @@
+{% extends 'index/base.html' %}
+{% load static %}
+
+{% block content %}
+    {% include "index/includes/controls_panel.html" with creation_form_url=creation_form_url delete_several_url=delete_several_url %}
+    {% include "index/includes/model_table.html" with items=items fields=fields %}
+{% endblock %}

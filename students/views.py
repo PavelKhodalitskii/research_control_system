@@ -30,6 +30,7 @@ class CreateStudentView(FormView):
 class StudentTableView(TableRawDataView):
     template_name = 'students/students_main_view.html'
     title = 'Таблица студентов'
+    table_url = 'students_table'
     creation_form_url = 'create_student'
     delete_several_url = 'delete_several_students'
 
@@ -43,12 +44,11 @@ class StudentTableView(TableRawDataView):
 class StudentDetailView(TemplateView):
     template_name = 'students/student_detail_view.html'
     title = 'Подробная информация о студенте'
-    pk_url_kwarg = 'student_id'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        student_id = self.kwargs['student_id']
-        addition = StudentController.get_context_for_detail_view(student_id)
+        account_id = self.kwargs['account_id']
+        addition = StudentController.get_context_for_detail_view(account_id)
         context = context | addition
         context["title"] = self.title
         return context

@@ -6,6 +6,8 @@ from models_manager.models import (Account,
                                    Department,
                                    Faculty)
 from index.dataloader import DataLoader
+from index.utils import MetaField
+
 from .queries import (get_student_information_query_template,
                       get_student_information_by_id_query_template)
 
@@ -16,11 +18,6 @@ class GraduateStudentController:
         if profiles.exists():
             return profiles.first()
         return None
-    
-class SQLToDjangoField:
-    def __init__(self, verbose_name, name):
-        self.verbose_name = verbose_name
-        self.name = name
 
 class StudentController:
     @staticmethod
@@ -40,7 +37,7 @@ class StudentController:
 
         fields = []
         for i in range(len(sql_fields)):
-            fields.append(SQLToDjangoField(verbose_names[i], sql_fields[i]))
+            fields.append(MetaField(verbose_names[i], sql_fields[i]))
         query = get_student_information_query_template()
         students = StudentProfile.objects.raw(query)
         return {
@@ -54,9 +51,8 @@ class StudentController:
         }
 
     @staticmethod
-    def get_context_for_detail_view(student_id: int) -> dict:
-        # sql_fields = ["id", "accountid", "firstname", "lastname", "patronymic", "year", "studgroup", "speciality", "department", "faculty"]
-        query = get_student_information_by_id_query_template(student_id)
+    def get_context_for_detail_view(account_id: int) -> dict:
+        query = get_student_information_by_id_query_template(account_id)
         student = StudentProfile.objects.raw(query)[0]
         return {
             "student": student

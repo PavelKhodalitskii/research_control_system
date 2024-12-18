@@ -1,11 +1,11 @@
 from models_manager.models import (Research, Event, Account, ResearchParticipants)
-from teachers.service import TeachersController
+from teachers.service import TeacherController
 from students.service import GraduateStudentController, StudentController
 
 class ResearchesContorller:
     @staticmethod
     def get_research_information(research: Research):
-        committe_info = TeachersController.get_commitette_data(research.commitette)
+        committe_info = TeacherController.get_commitette_data(research.commitette)
         participants_accounts = ResearchesContorller.get_participants_accounts(research)
         participants_groups = {"participants": ResearchesContorller.get_user_grouped_by_account_cats(participants_accounts)}
 
@@ -24,7 +24,7 @@ class ResearchesContorller:
         graduate_students = []
 
         for account in accounts:
-            teacher = TeachersController.get_teacher_by_account(account)
+            teacher = TeacherController.get_teacher_by_account(account)
             if teacher:
                 teachers.append(teacher)
                 continue

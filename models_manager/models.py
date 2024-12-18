@@ -252,7 +252,7 @@ class StudentProfile(models.Model):
     account = models.ForeignKey(Account, models.DO_NOTHING, db_column='account', blank=True, null=True, verbose_name="Аккаунт")
 
     def get_absolute_url(self):
-        return reverse('student_details', kwargs={'student_id': self.id})
+        return reverse('student_details', kwargs={'account_id': self.account.id})
 
     def __str__(self):
         return " ".join([self.account.firstname, self.account.lastname])
@@ -273,6 +273,9 @@ class TeacherProfile(models.Model):
     account = models.ForeignKey(Account, models.DO_NOTHING, db_column='account', blank=True, null=True, verbose_name="Аккаунт")
     department = models.ForeignKey(Department, models.DO_NOTHING, db_column='department', blank=True, null=True, verbose_name="Кафедра")
     ishead = models.BooleanField(blank=True, null=True, verbose_name="Глава кафедры")
+
+    def get_absolute_url(self):
+        return reverse('teacher_details', kwargs={'account_id': self.account.id})
 
     def __str__(self):
         return " ".join([self.account.firstname, self.account.lastname])

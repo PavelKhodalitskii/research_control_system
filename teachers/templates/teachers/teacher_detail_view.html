@@ -1,0 +1,18 @@
+{% extends 'index/base.html' %}
+{% load static %}
+{% load getattr %}
+
+{% block content %}
+    <div>
+        <h1>ФИО: {{ teacher.firstname }} {{ teacher.lastname }} {{ teacher.patronymic }} </h1>
+        <p>Должность: {{ teacher.post }}</p>
+        <p>Статус: {{ teacher.status }}</p>
+        <p>Научная степень: {{ teacher.degree }}</p>
+        <p>Кафедра: {{ teacher.department }}</p>
+        <p>Глава: {{ teacher.ishead }}</p>
+        <form method="POST" action="{% url 'delete_teacher' teacher.id %}">
+            {% csrf_token %}
+            <input type="submit" value="Удалить"></button>
+        </form>
+    </div>
+{% endblock %}

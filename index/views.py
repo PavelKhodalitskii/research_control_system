@@ -28,6 +28,7 @@ class TableRawDataView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["title"] = self.title
+        context["table_url"] = self.table_url
         context["creation_form_url"] = self.creation_form_url
         context["delete_several_url"] = self.delete_several_url
         return context
