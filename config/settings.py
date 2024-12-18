@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'models_manager',
     'account',
     'index',
-    'researches'
+    'researches',
+    'students'
 ]
 
 MIDDLEWARE = [

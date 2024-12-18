@@ -1,0 +1,47 @@
+{% load static %}
+{% load getattr %}
+{% load getitem %}
+
+<table class="items_table" id="items_table">
+    <thead>
+        <tr>
+            <th></th>
+            {% for field in fields %}
+                <th>
+                    {% if field.name in foreign_key_fields %}
+                        <form class="filter" action="{% url 'students_table' %}" method="GET">
+                            <select name="{{ field.name }}" onchange="this.form.submit()">
+                                <option value="">{{ field.verbose_name }}</option>
+                                {% with choices=foreign_key_choices|getitem:field.name %}  
+                                    {% for choice in choices %}
+                                        <option value="{{ choice.pk }}" {% if request.GET.type == choice.pk %} selected {% endif %}>{{ choice }}</option>
+                                    {% endfor %}
+                                {% endwith %}
+                            </select>
+                        </form>
+                    {% elif field.name in order_by_fields %}
+                        {{ field.verbose_name }}
+                        <img src="{% static 'images/utils/triangle-sort.png' %}" class="sort_image" onclick="changeOrder(sort_name='{{ field.name }}', value_1='ascending', value_2='descending', default_value='descending')">
+                    {% else %}
+                        {{ field.verbose_name }}
+                    {% endif %}
+                </th> 
+            {% endfor %}
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in items %}
+            <tr {% if forloop.counter|divisibleby:2 %}style="background-color: #D9D9D9"{% endif %}>
+                <td><input type="checkbox" name="checkbox_action"></td>
+                {% for field in fields %}
+                    {% with field_name=field.name %}  
+                    <td><a class="table_row_wrapper" href="{{ item.get_absolute_url }}">{{ item|getattr:field_name }}</td>
+                    {% endwith %}
+                {% endfor %}
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<script src="{% static 'js/change_order.js' %}">
+</script>

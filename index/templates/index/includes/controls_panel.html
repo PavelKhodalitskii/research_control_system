@@ -1,0 +1,124 @@
+{% load static %}
+
+<div class="table_control_menu">
+    <button id="create_button">Создать</button>
+    <button id="deletion_button">Удалить</button>
+    <button onclick="clearSorts()">Сбросить сортировки</button>
+</div>
+
+<div style="display: none;" class="create appering_form_contianer" id="appering_form_contianer">
+    <button class="close_button" id="close_button">&#10006;</button>
+    <iframe src="{%url creation_form_url %}">
+    </iframe>
+</div>
+
+<div style="display: none;" class="create appering_form_contianer" id="deleting_confirm_wrapper">
+    <button class="close_button" id="close_confirm">&#10006;</button>
+    <div class="deleting_confirm">
+        <h2>Вы действительно хотите удалить объекты: </h2>
+        <ul id="deliting_list">
+        </ul>
+        <div>
+            <button id="send_delete">Да</button>
+            <button id="dicsard_button">Отмена</button>
+        </div> 
+    </div>
+</div>
+
+<script src="{% static 'js/show_form.js' %}">
+</script>
+
+<script src="{% static 'js/clear_sorts.js' %}">
+</script>
+
+
+<script>
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    const csrftoken = getCookie('csrftoken');
+
+    function show_confirm(response_data) {
+        deletingConfirmDiv = document.getElementById('deleting_confirm_wrapper');
+        close_confirm = document.getElementById('close_confirm');
+
+        deletingConfirmDiv.style.display = 'block';
+        delitingList = document.getElementById("deliting_list");
+
+        const show = () => {
+            if (deletingConfirmDiv.style.display != 'none') {
+                deletingConfirmDiv.style.display = 'none';
+                delitingList.innerHTML = ""
+            }
+        };
+
+        for(let i=0; i < response_data['delete'].length; i++) {
+            new_li = document.createElement('li');
+            new_li.innerHTML = response_data['delete'][i];
+            delitingList.appendChild(new_li);
+        }
+        document.getElementById("dicsard_button").addEventListener("click", show);
+        close_confirm.addEventListener("click", show);
+    }
+
+    async function deleteRequest(objects_pks, confirmed) {
+        let response = await fetch("{% url delete_several_url %}", {
+            method: "POST",
+            body: JSON.stringify({
+                "delete": objects_pks,
+                "confirmed": confirmed
+            }),
+            headers: {
+                "X-CSRFToken": csrftoken
+            }
+        });
+        let data = await response.json();
+        if (data['status'] == 'ok') {
+            window.top.location.href = data['redirect']
+        }
+        show_confirm(data);
+    }
+
+    let pk_number = 0
+    const tableHeadRow = document.getElementsByTagName('th');
+
+    for (let i=0; i < tableHeadRow.length; i++) {
+        th = tableHeadRow[i]
+        if (th.textContent == {{ primary_key }}) {
+            pk_number = i;
+            break;
+        }
+    }
+    
+    document.getElementById('deletion_button').addEventListener('click', function() {
+    const checkboxes = document.getElementsByName('checkbox_action');
+    const selectedValues = [];
+
+    checkboxes.forEach((checkbox, index) => {
+        if (checkbox.checked) {
+            // TODO: Написать автополучение номера ячейки первичного ключа
+            const valueCell = checkbox.parentElement.parentElement.cells[1];
+            selectedValues.push(valueCell.textContent);
+        }
+    });
+
+    document.getElementById("send_delete").addEventListener("click", function () {deleteRequest(selectedValues, true)});
+    deleteRequest(selectedValues, false);
+    // show_confirm(deleteRequest(selectedValues, false));
+
+    console.log('Выбранные значения:', selectedValues);
+});
+</script>

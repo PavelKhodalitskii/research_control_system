@@ -251,6 +251,9 @@ class StudentProfile(models.Model):
     studgroup = models.ForeignKey(StudentGroups, models.DO_NOTHING, db_column='studgroup', blank=True, null=True, verbose_name="Группа")
     account = models.ForeignKey(Account, models.DO_NOTHING, db_column='account', blank=True, null=True, verbose_name="Аккаунт")
 
+    def get_absolute_url(self):
+        return reverse('student_details', kwargs={'student_id': self.id})
+
     def __str__(self):
         return " ".join([self.account.firstname, self.account.lastname])
 
