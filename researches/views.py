@@ -23,25 +23,6 @@ class EventListView(ListView):
     model = Event
     template_name = 'researches/researches.html'
     context_object_name = 'events'
-    foreign_key_fields = ['']
-    order_by_fields = ['date']
-
-    def filter_raw_data(self, queryset):
-        for field in self.foreign_key_fields:
-            filter_value = self.request.GET.get(field)
-            if filter_value:
-                filtered_items = []
-                for item in queryset:
-                    if str(item.__getattribute__(field)) == str(queryset[field].filter(pk=filter_value).first()):
-                        filtered_items.append(item)
-                queryset = filtered_items
-
-        for field in self.order_by_fields:
-            filter_value = self.request.GET.get(field)
-            if filter_value == 'ascending':
-                queryset = sorted(queryset, key=lambda x: x.__getattribute__(field), reverse=False)
-            elif filter_value == 'descending':
-                queryset= sorted(queryset, key=lambda x: x.__getattribute__(field), reverse=True)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -62,6 +43,10 @@ class EventListView(ListView):
         faculty_id = self.request.GET.get('faculty')
         if faculty_id:
             queryset = queryset.filter(faculty__id=faculty_id)
+
+        type = self.request.GET.get('type')
+        if type:
+            queryset = queryset.filter(type=type)
 
         return queryset
 

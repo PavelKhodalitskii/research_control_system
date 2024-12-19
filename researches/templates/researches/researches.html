@@ -11,12 +11,21 @@
 
         <form class="filters_researches" style="margin-top: 30px;">
             <b>Фильтры: </b>
+            <p>Факультет: </p>
             <select name="faculty">
                 <option value="">Факультет</option>
                 {% for faculty in faculties %}
                     <option value="{{ faculty.pk }}">{{faculty}}</option>
                 {% endfor %}
             </select>
+
+            <p>Тип: </p>
+            <select name="type">
+                <option value="">Тип мероприятия</option>
+                <option value="Олимпиада">Олимпиада</option>
+                <option value="Научно-исследовательское">Научно-исследовательское</option>
+            </select>
+
             <p>Год: </p>
             <input type="year" name="year"></input>
             <p>Определенная дата: </p>
