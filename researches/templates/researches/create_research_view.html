@@ -1,0 +1,13 @@
+{% extends 'index/base.html' %}
+{% load static %}
+
+{% block content %}
+    <form>
+        <form method="post">
+            <h2 class="head_form">Создать: </h2>
+            {{ form.as_p }}
+            {% csrf_token %}
+            <p><input id="submission_button" type="submit" value="Создать" class="submit_button"></p>
+        </form>
+    </form>
+{% endblock %}

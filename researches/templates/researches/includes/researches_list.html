@@ -1,0 +1,19 @@
+<div class="items_list">
+    {% for research_data in researches_data %}
+        <a href="{{ research_data.research.get_absolute_url }}" class="research">
+            <h2>Научно исследовательская работа</h2>
+            <div>
+                <b>Коммитет</b>
+                <p>Председатель: {{research_data.research_add_info.chairman}}</p>
+                <p>Состав комитета: </p>
+                {% if research_data.research_add_info.committe_participants_accounts|length > 0 %}
+                    {% for com_part in research_data.research_add_info.committe_participants_accounts %}
+                        <p>{{com_part}}</p>
+                    {% endfor %}
+                {% else %}
+                    <p>Нет</p>
+                {% endif %}
+            </div>
+        </a>
+    {% endfor %}
+</div> 

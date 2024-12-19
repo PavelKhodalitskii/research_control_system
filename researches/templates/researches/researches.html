@@ -1,0 +1,47 @@
+{% extends 'index/base.html' %}
+{% load static %}
+
+{% block content %}
+    <div style="display: flex; flex-direction: column;">
+        {% if request.user.is_teacher %}
+        <div>   
+            <a class="button_link" href="{% url 'research_create' %}">Добавить НИР</a>
+        </div>
+        {% endif %}
+
+        <form class="filters_researches" style="margin-top: 30px;">
+            <b>Фильтры: </b>
+            <p>Факультет: </p>
+            <select name="faculty">
+                <option value="">Факультет</option>
+                {% for faculty in faculties %}
+                    <option value="{{ faculty.pk }}">{{faculty}}</option>
+                {% endfor %}
+            </select>
+
+            <p>Тип: </p>
+            <select name="type">
+                <option value="">Тип мероприятия</option>
+                <option value="Олимпиада">Олимпиада</option>
+                <option value="Научно-исследовательское">Научно-исследовательское</option>
+            </select>
+
+            <p>Год: </p>
+            <input type="year" name="year"></input>
+            <p>Определенная дата: </p>
+            <input type="date" name="date"></input>
+            <input class="submit_button" type="submit" value="Применить фильтры"></input>
+        </form>
+
+        <div class="table_control_menu" style="margin-top: 30px;">
+            <button onclick="clearSorts()">Сбросить сортировки</button>
+        </div>
+
+        <div style="margin-top: 30px;">
+            {% include "researches/includes/events_list.html" with events=events %}
+        </div>
+    </div>
+
+    <script src="{% static 'js/clear_sorts.js' %}">
+    </script>
+{% endblock %}

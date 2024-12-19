@@ -1,0 +1,76 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link type="text/css" href="{% static 'css/styles.css' %}" rel = "stylesheet">
+
+    <!-- Получение шрифтов -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Geologica:wght@100..900&display=swap" rel="stylesheet">
+
+    <link rel="shortcut icon" href="{% static 'images/sitelogo.png' %}" type="image/x-icon"/>
+
+    <title>{{ title }}</title>
+</head>
+<body>
+    <header class="header">
+        <div class="navigation_bar">
+            <div class="naviagation_list">
+                <a href="{% url 'events_list' %}" class="header_item">
+                    <p class="header_link">Главная</p>
+                </a>
+                {% if request.user.is_superuser %}
+                    <a href="{% url 'students_table' %}" class="header_item">
+                        <p class="header_link">Студенты</p>
+                    </a>
+                    <a href="{% url 'graduates_table' %}" class="header_item">
+                        <p class="header_link">Аспиранты</p>
+                    </a>
+                    <a href="{% url 'teachers_table' %}" class="header_item">
+                        <p class="header_link">Преподаватели</p>
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+        <div class="user_info">
+            {% if request.user.is_authenticated %}
+                {% if request.user.is_superuser %}
+                    <a href="{% url 'admin:index' %}">Админ панель</a>
+                {% endif %}
+                <p>Вы авторизованы как: <a>{{ user.username }}</a></p>
+                <a href="{% url 'logout' %}">Выйти</a>
+            {% else %}
+                <a href="{% url 'login' %}">Войти</a>
+            {% endif %}
+        </div>
+    </header>
+    <div class="underline"></div>
+    
+    <!-- боковое меню
+    <div id="office_menu" class="office_menu">
+        <div class="office_menu_head">
+            <h2>Офисы</h2>
+            <button class="close_button" id="close_button">&#10006;</button>
+        </div>
+        <div class="offices_wrapper">
+            {% for office_building in office_buildings %}
+                <a href="{% url 'items_list' office_building.slug %}" class="office_container">
+                    <h3>{{ office_building }}</h3>
+                </a>
+            {% endfor %}
+        </div>
+    </div> -->
+
+    <div class="content">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+    <!-- <script src="{% static 'js/officesMenuHandler.js' %}">
+    </script> -->
+</body>
+</html>

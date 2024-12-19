@@ -1,0 +1,21 @@
+{% extends 'index/base.html' %}
+{% load static %}
+{% load getattr %}
+
+{% block content %}
+    <div>
+        <h1>ФИО: {{ student.firstname }} {{ student.lastname }} {{ student.patronymic }} </h1>
+        <p>Курс: {{ student.year }}</p>
+        <p>Группа: {{ student.studgroup }}</p>
+        <p>Специальность: {{ student.speciality }}</p>
+        <p>Кафедра: {{ student.department }}</p>
+        <p>Факультет: {{ student.faculty }}</p>
+        <form method="POST" action="{% url 'delete_student' student.id %}">
+            {% csrf_token %}
+            <input type="submit" value="Удалить"></button>
+        </form>
+
+        <h2>Участия в НИР: </h2>
+        {% include 'researches/includes/researches_list.html' with researches_data=researches_data %}
+    </div>
+{% endblock %}
