@@ -4,6 +4,8 @@ from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView, FormView
 
+from researches.service import ResearchesContorller
+
 from .service import TeacherController
 from .forms import TeacherCreationForm
 

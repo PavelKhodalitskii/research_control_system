@@ -35,6 +35,14 @@ p {
   text-align: left;
 }
 
+b {
+  font-family: 'Geologica';
+  font-weight: 600;
+  font-size: 15pt;
+  color: black;
+  text-align: left;
+}
+
 a {
   text-decoration: none;
   font-family: 'Geologica';
@@ -190,71 +198,20 @@ td {
   font-size: 12pt;
 }
 
-
-/* office menu */
-
-.office_menu {
-  display: none;
-  flex-direction: column;
-  position: fixed;
-  left: 0;
-  top: 0;
-  height: 100%;
-  width: 20%;
-}
-
-.office_menu_head {
-  height: 75px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  background-color: #29eaa0;
+input {
+  border-style: solid;
+  border-radius: 4px;
+  font-family: 'Geologica';
+  font-weight: 200;
+  font-size: 15pt;
   color: black;
-}
-
-.office_menu h2 {
-  padding-left: 40px;
-  font-size: 35px;
-}
-
-.close_button {
-  float: right;
-  margin-right: 20px; 
-  height: 30px;
-  width: 30px;
-}
-
-.offices_wrapper {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  background-color: #0a6fe2;
-  color: white;
-}
-
-.offices_wrapper a {
-  padding-left: 20px;
-}
-
-.offices_wrapper h3 {
-  font-size: 14pt;
-  color: white;
-}
-
-.office_container:hover {
-  background-color: #29eaa0;
+  text-align: left;
 }
 
 .detail_view_wrapper {
   display: flex;
   flex-direction: column;
 }
-
-.qr_code {
-  height: 350px;
-  width: 350px;
-}
-
 
 /* login wrapper */
 
@@ -307,6 +264,8 @@ td {
 
 .submit_button {
   border-radius: 10px;
+  border-style: none;
+  text-align: center;
   /* border: 1px solid rgb(107, 107, 107); */
   background-color: #29eaa0;
   width: 70px;
@@ -315,13 +274,21 @@ td {
 
 /* Селекты  */
 
-select {
+.table_header_select {
   border-style: none;
   background-color: transparent;
   font-family: 'Geologica';
   font-weight: 400;
   font-size: 12pt;
   color: white;
+}
+
+select {
+  background-color: transparent;
+  font-family: 'Geologica';
+  font-weight: 400;
+  font-size: 12pt;
+  color: black;
 }
 
 option {
@@ -347,6 +314,27 @@ button {
 }
 
 button:hover {
+  background-color: #767676;
+  color: white;
+}
+
+.button_link {
+  border-style: none;
+  border-radius: 20px;
+  background-color: #EDEDED;
+  color: black;
+  font-family: 'Geologica';
+  font-weight: 300;
+  font-size: 12pt;
+  height: 40px;
+  width: 200px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.button_link:hover {
   background-color: #767676;
   color: white;
 }
@@ -424,6 +412,25 @@ button:hover {
 }
 
 #deliting_list {
-  height: 50%;
+  max-height: 50%;
   overflow-y: scroll;
+}
+
+.filters_researches {
+  display: flex;
+  flex-direction: column;
+  max-width: 40%;
+  gap: 10px;
+}
+
+.filters_researches input {
+  width: 50%;
+}
+
+.filters_researches select {
+  width: 50%;
+}
+
+.filters_researches p {
+  margin: 0;
 }

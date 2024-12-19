@@ -4,6 +4,16 @@ from students.service import GraduateStudentController, StudentController
 
 class ResearchesContorller:
     @staticmethod
+    def get_researches_data(researches):
+        researches_data = []
+        for research in researches:
+            researches_data.append({
+                "research": research,
+                "research_add_info": ResearchesContorller.get_research_information(research)
+            })
+        return researches_data
+
+    @staticmethod
     def get_research_information(research: Research):
         committe_info = TeacherController.get_commitette_data(research.commitette)
         participants_accounts = ResearchesContorller.get_participants_accounts(research)

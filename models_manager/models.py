@@ -134,6 +134,9 @@ class GraduateStudentProfile(models.Model):
     def __str__(self):
         return " ".join([self.account.firstname, self.account.lastname])
 
+    def get_absolute_url(self):
+        return reverse('graduate_details', kwargs={'account_id': self.account.id})
+
     class Meta:
         managed = False
         db_table = 'graduatestudentprofile'

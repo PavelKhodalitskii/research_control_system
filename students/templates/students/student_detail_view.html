@@ -14,5 +14,8 @@
             {% csrf_token %}
             <input type="submit" value="Удалить"></button>
         </form>
+
+        <h2>Участия в НИР: </h2>
+        {% include 'researches/includes/researches_list.html' with researches_data=researches_data %}
     </div>
 {% endblock %}

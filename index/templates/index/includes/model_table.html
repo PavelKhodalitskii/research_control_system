@@ -10,7 +10,7 @@
                 <th>
                     {% if field.name in foreign_key_fields %}
                         <form class="filter" action="{% url table_url %}" method="GET">
-                            <select name="{{ field.name }}" onchange="this.form.submit()">
+                            <select class="table_header_select" name="{{ field.name }}" onchange="this.form.submit()">
                                 <option value="">{{ field.verbose_name }}</option>
                                 {% with choices=foreign_key_choices|getitem:field.name %}  
                                     {% for choice in choices %}

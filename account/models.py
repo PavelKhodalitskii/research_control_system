@@ -5,7 +5,9 @@ from models_manager.models import Account
 # Create your models here.
 
 class SystemUser(AbstractUser):
-    account = models.OneToOneField(Account, null=True, on_delete=models.CASCADE, verbose_name="Аккаунт")
+    account = models.OneToOneField(Account, null=True, blank=True, on_delete=models.CASCADE, verbose_name="Аккаунт")
+    is_teacher = models.BooleanField()
+    is_student = models.BooleanField()
 
     def __str__(self):
         if self.account:
